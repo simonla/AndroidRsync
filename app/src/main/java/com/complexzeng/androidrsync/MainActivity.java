@@ -23,9 +23,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        observer
-                = new RsyncFileObserver(getCacheDir().getAbsolutePath());
-        observer.startWatching();
+        // disable observer
+//        observer
+//                = new RsyncFileObserver(getCacheDir().getAbsolutePath());
+//        observer.startWatching();
         AndroidLibraryPatcher.start(getApplicationContext());
         consoleTextView = findViewById(R.id.console);
         Button button = findViewById(R.id.clear_button);
