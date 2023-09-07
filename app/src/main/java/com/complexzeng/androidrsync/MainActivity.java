@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
 
     class RsyncFileObserver extends FileObserver {
 
-
         public RsyncFileObserver(String path) {
             super(path);
         }
@@ -49,7 +48,35 @@ public class MainActivity extends AppCompatActivity {
                 if (consoleTextView.length() > 1024) {
                     clearLog();
                 }
-                consoleTextView.append("event=" + event + ", path=" + path + "\n");
+                String eventString = "";
+                if (event == 0x01) {
+                    eventString = "ACCESS";
+                } else if (event == 0x02) {
+                    eventString = "MODIFY";
+                } else if (event == 0x04) {
+                    eventString = "ATTRIB";
+                } else if (event == 0x08) {
+                    eventString = "CLOSE_WRITE";
+                } else if (event == 0x10) {
+                    eventString = "CLOSE_NOWRITE";
+                } else if (event == 0x20) {
+                    eventString = "OPEN";
+                } else if (event == 0x40) {
+                    eventString = "MOVED_FROM";
+                } else if (event == 0x80) {
+                    eventString = "MOVED_TO";
+                } else if (event == 0x100) {
+                    eventString = "CREATE";
+                } else if (event == 0x200) {
+                    eventString = "DELETE";
+                } else if (event == 0x400) {
+                    eventString = "DELETE_SELF";
+                } else if (event == 0x800) {
+                    eventString = "MOVE_SELF";
+                } else {
+                    eventString = "UNKNOWN";
+                }
+                consoleTextView.append("event=" + eventString + ", file=" + path + "\n");
             });
         }
     }
