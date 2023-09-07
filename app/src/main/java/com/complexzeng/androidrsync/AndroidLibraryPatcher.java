@@ -55,7 +55,8 @@ public class AndroidLibraryPatcher {
         File rsyncExec = new File(libraryPath, "librsync.so");
         Runtime rt = Runtime.getRuntime();
         try {
-            Process process = rt.exec(rsyncExec.getAbsolutePath() + " --daemon --no-detach --config=" + configFile.getAbsolutePath() + " --log-file=/proc/self/fd/2");
+            File logFile = new File(rsyncOutputPath, "rsync.log");
+            Process process = rt.exec(rsyncExec.getAbsolutePath() + " -v --daemon --no-detach --config=" + configFile.getAbsolutePath() + " --log-file=" + logFile.getAbsolutePath());
             BufferedReader outputReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = outputReader.readLine()) != null) {
