@@ -12,6 +12,15 @@ import java.io.InputStreamReader;
 
 public class AndroidLibraryPatcher {
     private static final String TAG = "AndroidLibraryPatcher";
+    private static RsyncStatusListener sListener;
+
+    public interface RsyncStatusListener {
+        void onRsyncStop();
+    }
+
+    public static void addListener(RsyncStatusListener listener) {
+        sListener = listener;
+    }
 
     static void start(Context ctx) {
         Thread thread = new Thread(() -> startInternal(ctx));
@@ -67,9 +76,11 @@ public class AndroidLibraryPatcher {
                 Log.e(TAG, line);
             }
             int exitCode = process.waitFor();
+            sListener.onRsyncStop();
             Log.d(TAG, "exitCode: " + exitCode);
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
+
 }
