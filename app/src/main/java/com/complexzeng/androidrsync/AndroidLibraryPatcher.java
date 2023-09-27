@@ -47,7 +47,7 @@ public class AndroidLibraryPatcher {
         try {
             boolean success = configFile.createNewFile();
             Log.d(TAG, "create rsyncd.conf res= " + success);
-            String config = "address = 127.0.0.1\n" +
+            String config = "address = 0.0.0.0\n" +
                     "port = 1873\n" +
                     "[root]\n" +
                     "path = /\n" +
